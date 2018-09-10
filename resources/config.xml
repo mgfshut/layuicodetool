@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configure>
+	<basedir>D:\\code</basedir>
+	<basePackage>com.gjxx.ftd</basePackage>
+	<db>
+		<dbName>ftd</dbName>
+		<user>root</user>
+		<pwd>123456</pwd>
+		<driver>com.mysql.jdbc.Driver</driver>
+		<url>jdbc:mysql://localhost:3306/ftd?useUnicode=true&amp;characterEncoding=UTF-8</url>
+	</db>
+	<packageSetting>
+		<controllerPackage>controller</controllerPackage>
+		<daoPackage>dao</daoPackage>
+		<daoImplPackage>impl</daoImplPackage>
+		<servicePackage>service</servicePackage>
+		<serviceImplPackage>impl</serviceImplPackage>
+		<entityPackage>entity</entityPackage>
+		<mapperPackage>sqlmap</mapperPackage>
+		<viewPackage>jsp</viewPackage>
+		<jsPackage>js</jsPackage>
+		<isDeleteTablePrefix>true</isDeleteTablePrefix>
+	</packageSetting>
+	<module>
+		<persistance>mybatis</persistance>
+		<name></name>
+		<isDeleteTablePrefix>true</isDeleteTablePrefix>
+		<savePath></savePath>
+		<framework>mvc</framework>
+		<table name="g_company"
+		prefix="g_"></table>
+	</module>
+</configure>

@@ -2,12 +2,12 @@ package ${basePackage}.${moduleName};
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.gjxx.core.type.LogType;
+import com.gjxx.core.utils.*;
+import ${basePackage}.controller.BaseController;
 import redis.clients.jedis.Jedis;
-import ${basePackage}.controller.sys.BaseController;
-import ${basePackage}.utils.*;
 import ${basePackage}.${entityPackage}.${entityCamelName};
 import ${basePackage}.${servicePackage}.${entityCamelName}Service;
-import ${basePackage}.utils.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ import java.util.*;
 public class ${entityCamelName}Controller extends BaseController{
 
     private static  Logger logger= LoggerFactory.getLogger(${entityCamelName}Controller.class);
-    private String logType = "99";
+    private String logType = LogType.xxx.getValue();
 
     @Autowired
     private ${entityCamelName}Service ${entityName}Service;
@@ -81,11 +81,15 @@ public class ${entityCamelName}Controller extends BaseController{
             List<${entityCamelName}> ${entityName}List = ${entityName}Service.selectList(
                 new EntityWrapper<${entityCamelName}>().eq("${entityName}_name", item.get${entityCamelName}Name()));
             if (entity == null) {
+                if(${entityName}List.size() > 0){
+                    res.setMessage("名称已存在！");
+                    return res;
+                }
                 item.setCreateTime(DateUtil.getToday("yyyy-MM-dd HH:mm:ss"));
                 item.setCreateUser(getLoginUser(request).getUserName());
             }else{
                 if(${entityName}List.size() > 0){
-                    if(${entityName}List.get(0).getId() != item.getId()){
+                    if(!${entityName}List.get(0).getId().equals(item.getId())){
                         res.setMessage("名称已存在！");
                         return res;
                     }
@@ -128,8 +132,7 @@ public class ${entityCamelName}Controller extends BaseController{
     </#if>
     </#if>
     </#list>
-    </#if>
-    String create_start_time, String create_end_time, String update_start_time, String update_end_time) {
+    </#if>) {
         ResultEntity res = new ResultEntity(ErrorCodeType.P_FAILURE, "查询失败!", null);
         try {
             EntityWrapper<${entityCamelName}> entityWrapper = new EntityWrapper<>();
@@ -144,22 +147,6 @@ public class ${entityCamelName}Controller extends BaseController{
             </#if>
             </#list>
             </#if>
-            if (create_start_time != null) {
-                create_start_time = create_start_time + " 00:00:00";
-                entityWrapper.ge("create_time",create_start_time);
-            }
-            if (update_start_time != null) {
-                update_start_time = update_start_time + " 00:00:00";
-                entityWrapper.ge("update_time",update_start_time);
-            }
-            if (create_end_time != null) {
-                create_end_time = create_end_time + " 23:59:59";
-                entityWrapper.le("create_time",create_end_time);
-            }
-            if (update_end_time != null) {
-                update_end_time = update_end_time + " 23:59:59";
-                entityWrapper.le("update_time",update_end_time);
-            }
             if (rows == null) {
                 rows = 10;
             }
@@ -193,8 +180,7 @@ public class ${entityCamelName}Controller extends BaseController{
     </#if>
     </#if>
     </#list>
-    </#if>
-    String create_start_time, String create_end_time, String update_start_time, String update_end_time){
+    </#if>){
         ResultEntity res = new ResultEntity(ErrorCodeType.SUCCESS,"查询失败!",null);
         try {
             EntityWrapper<${entityCamelName}> entityWrapper = new EntityWrapper<>();
@@ -209,22 +195,6 @@ public class ${entityCamelName}Controller extends BaseController{
             </#if>
             </#list>
             </#if>
-            if (create_start_time != null) {
-                create_start_time = create_start_time + " 00:00:00";
-                entityWrapper.ge("create_time",create_start_time);
-            }
-            if (update_start_time != null) {
-                update_start_time = update_start_time + " 00:00:00";
-                entityWrapper.ge("update_time",update_start_time);
-            }
-            if (create_end_time != null) {
-                create_end_time = create_end_time + " 23:59:59";
-                entityWrapper.le("create_time",create_end_time);
-            }
-            if (update_end_time != null) {
-                update_end_time = update_end_time + " 23:59:59";
-                entityWrapper.le("update_time",update_end_time);
-            }
             long count = ${entityName}Service.selectCount(entityWrapper);
             if (count >= 0) {
                 res.setErrorcode(ErrorCodeType.SUCCESS);

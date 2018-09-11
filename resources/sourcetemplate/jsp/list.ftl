@@ -14,33 +14,22 @@
     </head>
     <body>
         <form class="layui-form" action="" id="tableFrom">
-            <div class="index_serachT">
+            <div class="layui-form-item">
                 <#if columns??>
                 <#list columns as col>
                 <#if !col.primaryKey >
                 <#if col_index < 4>
-                <span class="index_serachSpan">${col.remark!}</span>
-                <div class="layui-input-inline index_serachSelect">
-                    <input type="" name="${col.propertyName}" lay-verify="" autocomplete="off" class="layui-input">
+                <div class="layui-inline">
+                    <label class="layui-form-label">${col.remark!}</label>
+                    <div class="layui-input-inline">
+                        <input type="" name="${col.propertyName}" lay-verify="" autocomplete="off" class="layui-input">
+                    </div>
                 </div>
                 </#if>
                 </#if>
                 </#list>
                 </#if>
-                <br/>
-                <span class="index_serachSpan" >创建时间</span>
-                <div class="layui-input-inline" style="margin-top: -8px;">
-                    <input type="text" name="create_start_time" id="cstdate" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})" style="width: 143px;display: inline-block;"> --
-                    <input type="text" name="create_end_time" id="cetdate" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})" style="width: 143px;display: inline-block;">
-                </div>
-
-                <span class="index_serachSpan" style="margin-left: 10px;">修改时间</span>
-                <div class="layui-input-inline" style="margin-top: -8px;">
-                    <input type="text" name="update_start_time" id="ustdate" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})" style="width: 143px;display: inline-block;"> --
-                    <input type="text" name="update_end_time" id="uetdate" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})" style="width: 143px;display: inline-block;">
-                </div>
-
-                <div class="layui-btn-group layui-input-inline index_serachBut">
+                <div class="btn-layui">
                     <a href="javascript:termQueryPage();" class="layui-btn layui-btn-small">查询</a>
                     <a href="javascript:resetFrom();" class="layui-btn layui-btn-small">清空</a>
                 </div>
@@ -73,9 +62,9 @@
             <div id="demo7"></div>
         </div>
         <%@include file="../common/footer.jsp"%>
-        <script type="text/javascript" src="<%=path%>/static/js/fav/${entityName}/${entityName}Layui.js" ></script>
+        <script type="text/javascript" src="<%=path%>/static/js/ftd/${entityName}/${entityName}Layui.js" ></script>
         <script type="text/javascript" src="<%=path%>/static/plugins/jquery/jquery.page.js" ></script>
         <script type="text/javascript" src="<%=path%>/static/js/common/layui.date.js" ></script>
-        <script type="text/javascript" src="<%=path%>/static/js/fav/${entityName}/${entityName}Page.js" ></script>
+        <script type="text/javascript" src="<%=path%>/static/js/ftd/${entityName}/${entityName}Page.js" ></script>
     </body>
 </html>
